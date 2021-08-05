@@ -1,0 +1,30 @@
+# hardcode for test
+REGION: ap-northeast-1
+COMPANY_TABLE_NAME:  LambdaStack-CompanyTable95A3E353-1PE19ALGDRL0N
+
+logging:
+  level:
+    idv: DEBUG
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessstate.enabled: true
+    readinessstate.enabled: true
+
+server:
+  port: 8080
+  compression:
+    enabled: true
+  http2:
+    enabled: true
+  shutdown: graceful
+
+spring:
+  application.name: backend
+  main:
+    banner-mode: 'off'
+  profiles.active: dev

@@ -1,0 +1,23 @@
+[[resources_companies]]
+== Companies
+
+The Companies resources is used to search and create companies.
+
+[[resources_companies_search]]
+=== Searching companies
+A `GET` request is used to search companies.
+
+==== Path Parameters
+include::{snippets}/find-company-by-name/path-parameters.adoc[]
+
+==== Example request
+include::{snippets}/find-company-by-name/http-request.adoc[]
+
+==== Example response
+include::{snippets}/find-company-by-name/http-response.adoc[]
+
+==== CURL request
+include::{snippets}/find-company-by-name/curl-request.adoc[]
+
+==== HTTPie request
+include::{snippets}/find-company-by-name/httpie-request.adoc[]

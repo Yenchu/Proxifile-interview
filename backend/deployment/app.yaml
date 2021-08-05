@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-app
+  labels:
+    app: demo-app
+spec:
+  selector:
+    matchLabels:
+      app: demo-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: demo-app
+    spec:
+      serviceAccountName: sa-app
+      containers:
+        - name: demo-app
+          image: $ACCOUNT.dkr.ecr.ap-northeast-1.amazonaws.com/demo-app:latest
+          #image: docker.io/library/backend:v0.0.1
+          resources:
+            requests:
+              cpu: 200m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+          ports:
+            - containerPort: 8080
+          env:
+            - name: COMPANY_TABLE_NAME
+              value: LambdaStack-CompanyTable95A3E353-1PE19ALGDRL0N
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-svc
+  labels:
+    app: demo-svc
+spec:
+  type: NodePort
+  selector:
+    app: demo-app
+  ports:
+    - port: 8080
+      targetPort: 8080
